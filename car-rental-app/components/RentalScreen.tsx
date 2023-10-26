@@ -7,17 +7,14 @@ import React, { useState } from 'react';
 export default function RentalScreen() {
  const [amount, setAmount] = useState(0);
  const [isRenting, setIsRenting] = useState(false);
- const [isBooked, setIsBooked] = useState(false);
 
   const incrementAmount = () => {
     setIsRenting(!isRenting);
     if(isRenting){
-    Alert.alert('Renting canceled');
+    Alert.alert('Added to Cart');
     } else{
-    Alert.alert('Added to Cart');
+    Alert.alert('Renting canceled');
     }
-    setIsBooked(!isBooked);
-    Alert.alert('Added to Cart');
     // You can add more logic to actually add items to the cart here.
   };
 
@@ -25,7 +22,7 @@ export default function RentalScreen() {
     <View style={styles.container}>
      <View style={styles.menuWrapper}>
      <Icon name="arrow-long-left" size={30} color="black"/>
-      <Text> Rent your car now</Text>
+      <Text style={styles.Header} > Rent your car now</Text>
       <Icon name="user" size={30} color="black" style={styles.profile}/>
      </View>
 
@@ -34,7 +31,12 @@ export default function RentalScreen() {
     </View>
 
     <View style={styles.descriptionWrapper}>
+
+    <View style={styles.priceIcon}>
     <Icon name="price-tag" size={40} color="black" />
+    <Text>price</Text>
+    </View>
+
 
     <TouchableOpacity onPress={incrementAmount}>
       <Icon name={isRenting ? 'shopping-cart' : 'check'} size={40} color="black" />
@@ -49,6 +51,7 @@ export default function RentalScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor:'#f0ae5d'
 
   },
   menuWrapper: {
@@ -67,18 +70,27 @@ const styles = StyleSheet.create({
   borderWidth:1,
   justifyContent:'center',
   alignItems: 'center',
-  margin:50,
+  margin:90,
   },
 
   descriptionWrapper:{
   flex:1,
   backgroundColor:'#ebfaf9',
-  borderRadius:30,
+  borderTopRightRadius:30,
+  borderTopLeftRadius:30,
   flexDirection:'row',
   paddingLeft:20,
   paddingRight:20,
   justifyContent:'space-between',
   borderWidth:1,
+  },
+  priceIcon: {
+  flexDirection:'column',
+
+  },
+  Header: {
+  paddingTop:40,
+  fontSize:30,
   }
 });
 
