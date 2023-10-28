@@ -41,13 +41,13 @@ const HomeScreen = () =>{
       </View>
       <View style={styles.flexbox}>
         <View style={styles.box1}>
-          <Image source={require('../../imgs/car1.jpg')} style={styles.images} />
+          <Image source={require('../imgs/car1.jpg')} style={styles.images} />
           <Text style={styles.txtcolor}>{carName}</Text>
           <Text>This car is very cool, now please rent it.</Text>
         </View>
 
         <View style={styles.box2}>
-          <Image source={require('../../imgs/car1.jpg')} style={styles.images} />
+          <Image source={require('../imgs/car2.jpg')} style={styles.images} />
           <Text style={styles.txtcolor}>Car 2</Text>
           <Text>This car is very cool, now please rent it.</Text>
         </View>
