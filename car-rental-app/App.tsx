@@ -14,49 +14,48 @@ const Stack = createStackNavigator();
 /**
  * 
  * @returns 
- * <Tab.Screen name="Profile" component={ProfileScreen} options={{
-                      tabBarStyle: { backgroundColor: '#a4a4a4'},
-                      tabBarLabel: 'Profile',
-                      tabBarIcon: () => (
-                      <FontAwesome name="home" color={'#000000'} size={40} />
-                    ),}}/>
+ * <Tab.Screen name="Rent" component={} options={{
+            tabBarIcon: () =>(
+              <FontAwesome name="car" color={'#000000'} size={35} />
+            ),
+          }}/>
  */
 
-export default function App() {
-  return (    
-      <NavigationContainer>
-        <Tab.Navigator 
+
+function TabNavigator(){
+  return(
+    <Tab.Navigator 
           screenOptions={{
             tabBarStyle: {
               backgroundColor: '#c4c4c4'
             }
           }}>
-          <Tab.Screen name="Home" component={HomeScreen} options={{
+          <Tab.Screen name="Home" component={StackNavigator} options={{
             tabBarStyle: { backgroundColor: '#a4a4a4'},
             tabBarLabel: 'Home', 
             tabBarIcon: () => (
             <FontAwesome name="home" color={'#000000'} size={40} />
-          ),}}/>
-          <Tab.Screen name="Rent" component={RentalScreen} options={{
-            tabBarIcon: () =>(
-              <FontAwesome name="car" color={'#000000'} size={35} />
-            ),
-          }}/>
-          <Tab.Screen name="Profile" component={ProfileScreen} options={{
-                      tabBarStyle: { backgroundColor: '#a4a4a4'},
-                      tabBarLabel: 'Profile',
-                      tabBarIcon: () => (
-                      <FontAwesome name="user" color={'#000000'} size={40} />
-                    ),}}/>
+          ),}}/>    
         </Tab.Navigator>
+  )
+}
+
+function StackNavigator(){
+  return(
+    <Stack.Navigator>
+      <Stack.Screen name='HomeScreen' component={HomeScreen} options={{
+          headerShown: false,
+        }} />
+      <Stack.Screen name='Profile' component={ProfileScreen}/>
+      <Stack.Screen name='Rental' component={RentalScreen}/>
+    </Stack.Navigator>
+  )
+}
+export default function App() {
+  return (    
+      <NavigationContainer>
+        <TabNavigator/>
       </NavigationContainer>
   );
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-
-  },
-});
 

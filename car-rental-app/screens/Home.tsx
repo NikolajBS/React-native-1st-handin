@@ -6,9 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import ProfileScreen from './ProfileScreen';
 
 
-const HomeScreen = () =>{
-  
-
+const HomeScreen = ({ navigation }) =>{
 
   const storeData = async(value:string) =>{
     try{
@@ -36,8 +34,7 @@ const HomeScreen = () =>{
     
     retrieveData();
 
-    const Stack = createStackNavigator();
-
+  
     return(
     <View style={styles.container}>
       <View style={styles.topArea}>
@@ -45,21 +42,27 @@ const HomeScreen = () =>{
         <View style={styles.smallSpace}></View>
         <FontAwesome name="search" color={'#000000'} size={40} />
         <View style={styles.space}></View>  
+        <TouchableOpacity onPress={() =>{navigation.navigate('Profile')}}>
         <FontAwesome name="user" color={'#000000'} size={40} style={styles.userIcon}/>
+        </TouchableOpacity>
       </View>
 
       <View style={styles.flexbox}>
-        <View style={styles.box1}>
+        <TouchableOpacity onPress={() =>{navigation.navigate('Rental')}}>
+        <View style={styles.box}>
           <Image source={require('../imgs/car1.jpg')} style={styles.images} />
           <Text style={styles.txtcolor}>{carName}</Text>
           <Text>This car is very cool, now please rent it.</Text>
         </View>
+        </TouchableOpacity>
 
-        <View style={styles.box2}>
+        <TouchableOpacity onPress={() =>{navigation.navigate('Rental')}}>
+        <View style={styles.box}>
           <Image source={require('../imgs/car2.jpg')} style={styles.images} />
           <Text style={styles.txtcolor}>Car 2</Text>
           <Text>This car is very cool, now please rent it.</Text>
         </View>
+        </TouchableOpacity>
       </View>
 
     </View>
@@ -83,14 +86,10 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     margin: 5
   },
-  box1: {
+  box: {
     backgroundColor: '#6e918c',
     alignItems: 'center',
     margin: 1
-  },
-  box2:{
-    backgroundColor: '#6e918c',
-    alignItems: 'center'
   },
   images: {
     width: 390,
