@@ -7,7 +7,7 @@ import * as Animatable from 'react-native-animatable';
 
 
 
-const SignInScreen = ({ navigation }) => {
+const ProfileScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
@@ -56,7 +56,7 @@ const SignInScreen = ({ navigation }) => {
 
 
   //Profile
-  const ProfileScreen = () => {
+  
     return (
       <View style={styles.container}>
         <View style={styles.header}>
@@ -162,7 +162,6 @@ const SignInScreen = ({ navigation }) => {
     );
   };
 
-}
 
 const styles = StyleSheet.create({
   container: {
@@ -217,4 +216,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default SignInScreen;
+export default ProfileScreen;

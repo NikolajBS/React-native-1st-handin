@@ -6,8 +6,21 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from './screens/Home';
 import ProfileScreen from './screens/ProfileScreen';
 import { FontAwesome } from '@expo/vector-icons';
+import { createStackNavigator } from '@react-navigation/stack';
 
 const Tab = createBottomTabNavigator()
+const Stack = createStackNavigator();
+
+/**
+ * 
+ * @returns 
+ * <Tab.Screen name="Profile" component={ProfileScreen} options={{
+                      tabBarStyle: { backgroundColor: '#a4a4a4'},
+                      tabBarLabel: 'Profile',
+                      tabBarIcon: () => (
+                      <FontAwesome name="home" color={'#000000'} size={40} />
+                    ),}}/>
+ */
 
 export default function App() {
   return (    
@@ -33,7 +46,7 @@ export default function App() {
                       tabBarStyle: { backgroundColor: '#a4a4a4'},
                       tabBarLabel: 'Profile',
                       tabBarIcon: () => (
-                      <FontAwesome name="home" color={'#000000'} size={40} />
+                      <FontAwesome name="user" color={'#000000'} size={40} />
                     ),}}/>
         </Tab.Navigator>
       </NavigationContainer>

@@ -1,8 +1,14 @@
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import ProfileScreen from './ProfileScreen';
+
 
 const HomeScreen = () =>{
+  
+
 
   const storeData = async(value:string) =>{
     try{
@@ -29,16 +35,19 @@ const HomeScreen = () =>{
     };
     
     retrieveData();
+
+    const Stack = createStackNavigator();
+
     return(
     <View style={styles.container}>
       <View style={styles.topArea}>
-        
         <FontAwesome name="align-justify" color={'#000000'} size={40} />
         <View style={styles.smallSpace}></View>
         <FontAwesome name="search" color={'#000000'} size={40} />
-        <View style={styles.space}></View>
+        <View style={styles.space}></View>  
         <FontAwesome name="user" color={'#000000'} size={40} style={styles.userIcon}/>
       </View>
+
       <View style={styles.flexbox}>
         <View style={styles.box1}>
           <Image source={require('../imgs/car1.jpg')} style={styles.images} />
