@@ -10,18 +10,15 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^13.0.0",
+    "@react-native-async-storage/async-storage": "1.18.2",
     "@react-navigation/bottom-tabs": "^6.5.11",
     "@react-navigation/native": "^6.1.9",
     "expo": "~49.0.13",
     "expo-status-bar": "~1.6.0",
     "react": "18.2.0",
     "react-native": "0.72.6",
-<<<<<<< HEAD
-=======
-    "react-native-feather": "^1.1.2",
->>>>>>> 71420e52980c2403dc05d1e5a08ae6a1ef46edaf
-    "react-native-vector-icons": "^10.0.0",
-    "@react-native-async-storage/async-storage": "1.18.2"
+    "react-native-animatable": "^1.4.0",
+    "react-native-vector-icons": "^10.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

@@ -4,6 +4,7 @@ import RentalScreen from './components/RentalScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from './screens/Home';
+import ProfileScreen from './screens/ProfileScreen';
 import { FontAwesome } from '@expo/vector-icons';
 
 const Tab = createBottomTabNavigator()
@@ -28,6 +29,12 @@ export default function App() {
               <FontAwesome name="car" color={'#000000'} size={35} />
             ),
           }}/>
+          <Tab.Screen name="Profile" component={ProfileScreen} options={{
+                      tabBarStyle: { backgroundColor: '#a4a4a4'},
+                      tabBarLabel: 'Profile',
+                      tabBarIcon: () => (
+                      <FontAwesome name="home" color={'#000000'} size={40} />
+                    ),}}/>
         </Tab.Navigator>
       </NavigationContainer>
   );
