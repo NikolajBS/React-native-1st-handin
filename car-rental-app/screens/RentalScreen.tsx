@@ -6,7 +6,7 @@ import {images} from '../images';
 
 const  RentalScreen = ({ route }) => {
  const [amount, setAmount] = useState(0);
- const [isRenting, setIsRenting] = useState(false);
+ const [isRenting, setIsRenting] = useState(true);
 
   const incrementAmount = () => {
     setIsRenting(!isRenting);
