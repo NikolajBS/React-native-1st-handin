@@ -48,7 +48,7 @@ const HomeScreen = ({ navigation }) =>{
       </View>
 
       <View style={styles.flexbox}>
-        <TouchableOpacity onPress={() =>{navigation.navigate('Rental')}}>
+        <TouchableOpacity onPress={() =>{navigation.navigate('Rental', {NameOfCar: 'skibidi', Num: 0})}}>
         <View style={styles.box}>
           <Image source={require('../imgs/car1.jpg')} style={styles.images} />
           <Text style={styles.txtcolor}>{carName}</Text>
@@ -56,7 +56,7 @@ const HomeScreen = ({ navigation }) =>{
         </View>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() =>{navigation.navigate('Rental')}}>
+        <TouchableOpacity onPress={() =>{navigation.navigate('Rental', {NameOfCar: 'skibidi2', Num: 1})}}>
         <View style={styles.box}>
           <Image source={require('../imgs/car2.jpg')} style={styles.images} />
           <Text style={styles.txtcolor}>Car 2</Text>

@@ -1,8 +1,10 @@
-import { StyleSheet, Text, View,TouchableOpacity,Alert } from 'react-native';
+import { StyleSheet, Text, View,TouchableOpacity,Alert, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
 import React, { useState } from 'react';
 
-const  RentalScreen = () => {
+import {images} from '../images';
+
+const  RentalScreen = ({ route }) => {
  const [amount, setAmount] = useState(0);
  const [isRenting, setIsRenting] = useState(false);
 
@@ -16,6 +18,8 @@ const  RentalScreen = () => {
     // You can add more logic to actually add items to the cart here.
   };
 
+  const {NameOfCar, Num} = route.params;
+  
   return (
     <View style={styles.container}>
      <View style={styles.menuWrapper}>
@@ -25,7 +29,10 @@ const  RentalScreen = () => {
      </View>
 
     <View style={styles.carContainer}>
-    <Text>car</Text>
+    <Text>car {NameOfCar}</Text>
+    
+    <Image source={images[Num]} style={styles.images} />
+  
     </View>
 
     <View style={styles.descriptionWrapper}>
@@ -89,6 +96,10 @@ const styles = StyleSheet.create({
   Header: {
   paddingTop:40,
   fontSize:30,
+  },
+  images: {
+    width: 390,
+    height: 200
   }
 });
 
