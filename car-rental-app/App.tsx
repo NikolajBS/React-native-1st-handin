@@ -9,13 +9,7 @@ import { FontAwesome } from '@expo/vector-icons';
 const Tab = createBottomTabNavigator()
 
 export default function App() {
-  return (
-     
-    <View style={styles.container}>
-      <RentalScreen/>
-      <StatusBar style="auto" />
-    </View>
-    
+  return (    
       <NavigationContainer>
         <Tab.Navigator 
           screenOptions={{
@@ -29,6 +23,11 @@ export default function App() {
             tabBarIcon: () => (
             <FontAwesome name="home" color={'#000000'} size={40} />
           ),}}/>
+          <Tab.Screen name="Rent" component={RentalScreen} options={{
+            tabBarIcon: () =>(
+              <FontAwesome name="car" color={'#000000'} size={35} />
+            ),
+          }}/>
         </Tab.Navigator>
       </NavigationContainer>
   );

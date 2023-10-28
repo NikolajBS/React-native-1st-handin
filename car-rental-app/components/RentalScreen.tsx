@@ -1,10 +1,8 @@
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View,TouchableOpacity,Alert } from 'react-native';
-import Feather from 'react-native-feather';
 import Icon from 'react-native-vector-icons/Entypo';
 import React, { useState } from 'react';
 
-export default function RentalScreen() {
+const  RentalScreen = () => {
  const [amount, setAmount] = useState(0);
  const [isRenting, setIsRenting] = useState(false);
 
