@@ -4,26 +4,30 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import ProfileScreen from './ProfileScreen';
+import { useEffect } from 'react';
 
 
 const HomeScreen = ({ navigation }) =>{
 
-  const storeData = async(value:string) =>{
+  
+  const storeData = async(key:string, value:string) =>{
     try{
-      await AsyncStorage.setItem('my-key', value);
+      await AsyncStorage.setItem(key, value);
     } catch(e) {
       // handle error
     }};
-    let carName:string = "";
-    storeData("Volvo");
-    //console.log(AsyncStorage.getItem('my-key'));
-    const retrieveData = async () => {
+    
+    storeData("car1","Nissan Skyline");
+    storeData("car2","Ford GT");
+    
+
+    const retrieveData = async (key:string) => {
       try {
-        const storedValue = await AsyncStorage.getItem('my-key');
+        const storedValue = await AsyncStorage.getItem(key);
         if (storedValue) {
           const parsedValue = JSON.stringify(storedValue);
           console.log(parsedValue); // This will print the actual data
-          carName = parsedValue;
+          return parsedValue;
         } else {
           console.log('No data found in AsyncStorage');
         }
@@ -32,9 +36,7 @@ const HomeScreen = ({ navigation }) =>{
       }
     };
     
-    retrieveData();
-
-  
+    
     return(
     <View style={styles.container}>
       <View style={styles.topArea}>
@@ -48,18 +50,18 @@ const HomeScreen = ({ navigation }) =>{
       </View>
 
       <View style={styles.flexbox}>
-        <TouchableOpacity onPress={() =>{navigation.navigate('Rental', {NameOfCar: 'Car 1', Num: 0})}}>
+        <TouchableOpacity onPress={() =>{navigation.navigate('Rental', {NameOfCar: 'Nissan Skyline', Num: 0})}}>
         <View style={styles.box}>
           <Image source={require('../imgs/car1.jpg')} style={styles.images} />
-          <Text style={styles.txtcolor}>Car 1</Text>
+          <Text style={styles.txtcolor}>Nissan Skyline</Text>
           <Text>This car is very cool, now please rent it.</Text>
         </View>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() =>{navigation.navigate('Rental', {NameOfCar: 'Car 2', Num: 1})}}>
+        <TouchableOpacity onPress={() =>{navigation.navigate('Rental', {NameOfCar: 'Ford GT', Num: 1})}}>
         <View style={styles.box}>
           <Image source={require('../imgs/car2.jpg')} style={styles.images} />
-          <Text style={styles.txtcolor}>Car 2</Text>
+          <Text style={styles.txtcolor}>Ford GT</Text>
           <Text>This car is very cool, now please rent it.</Text>
         </View>
         </TouchableOpacity>
@@ -72,7 +74,7 @@ const HomeScreen = ({ navigation }) =>{
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#c4c4c4',
+    backgroundColor: '#e09f3e',
     alignItems: 'center',
     justifyContent: 'center', 
     flexDirection: 'column'
@@ -87,9 +89,13 @@ const styles = StyleSheet.create({
     margin: 5
   },
   box: {
-    backgroundColor: '#6e918c',
+    backgroundColor: '#F0AA42',
     alignItems: 'center',
-    margin: 1
+    margin: 1,
+    borderWidth: 1,
+    borderColor: 'black',
+    borderRadius: 10
+    
   },
   images: {
     width: 390,
