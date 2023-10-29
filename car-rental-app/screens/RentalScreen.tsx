@@ -23,7 +23,7 @@ const  RentalScreen = ({ route }) => {
   return (
     <View style={styles.container}>
      <View style={styles.menuWrapper}>
-     <Icon name="arrow-long-left" size={30} color="black"/>
+
       <Text style={styles.Header} > Rent your car now</Text>
       <Icon name="user" size={30} color="black" style={styles.profile}/>
      </View>
