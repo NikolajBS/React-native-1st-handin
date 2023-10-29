@@ -33,7 +33,7 @@ function SettingsScreen({ theme, setTheme, language, toggleLanguage }: ThemeProp
                     <Icon name="arrow-long-left" size={64} color={theme.backgroundColor === 'lightgray' ? "black" : "lightgray"}/>
                 </View>
             </TouchableOpacity>
-            
+
 {/**
  * NOTIFICATIONS BUTTON
  */}
@@ -60,14 +60,14 @@ function SettingsScreen({ theme, setTheme, language, toggleLanguage }: ThemeProp
                 <TouchableOpacity onPress={handleDarkMode}>
                     <View style={[styles.button, {backgroundColor: theme.buttonColor}, {borderColor: theme.textColor}]}>
                         <Text style={[styles.buttonText, {color: theme.textColor}]}>
-                            {theme.backgroundColor === 'lightgray' 
-                                ? (language === 'English' ? 'Dark Mode' : 'Mørk tilstand') 
+                            {theme.backgroundColor === 'lightgray'
+                                ? (language === 'English' ? 'Dark Mode' : 'Mørk tilstand')
                                 : (language === 'English' ? 'Light Mode' : 'Lys tilstand')}
                         </Text>
                     </View>
                 </TouchableOpacity>
             </View>
-            
+
 {/**
  * LANGUAGES BUTTON
  */}
