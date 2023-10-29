@@ -8,14 +8,14 @@ const  RentalScreen = ({ route }) => {
  const [amount, setAmount] = useState(0);
  const [isRenting, setIsRenting] = useState(true);
 
-  const incrementAmount = () => {
+  const alertUser = () => {
     setIsRenting(!isRenting);
     if(isRenting){
     Alert.alert('Added to Cart');
     } else{
     Alert.alert('Renting canceled');
     }
-    // You can add more logic to actually add items to the cart here.
+
   };
 
   const {NameOfCar, Num} = route.params;
@@ -23,7 +23,7 @@ const  RentalScreen = ({ route }) => {
   return (
     <View style={styles.container}>
      <View style={styles.menuWrapper}>
-     <Icon name="arrow-long-left" size={30} color="black"/>
+
       <Text style={styles.Header} > Rent your car now</Text>
       <Icon name="user" size={30} color="black" style={styles.profile}/>
      </View>
@@ -43,7 +43,7 @@ const  RentalScreen = ({ route }) => {
     </View>
 
 
-    <TouchableOpacity onPress={incrementAmount}>
+    <TouchableOpacity onPress={alertUser}>
       <Icon name={isRenting ? 'shopping-cart' : 'check'} size={40} color="black" />
       <Text>{isRenting ? 'Not Booked' : 'You have booked this car'} </Text>
     </TouchableOpacity>
