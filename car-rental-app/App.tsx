@@ -8,6 +8,7 @@ import HomeScreen from './screens/Home';
 import ProfileScreen from './screens/ProfileScreen';
 import SettingsScreen from './screens/SettingsScreen';
 import { ThemeProps } from './types/ThemeProps';
+import { LanguageProps } from './types/LanguageProps';
 import { FontAwesome } from '@expo/vector-icons';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -25,7 +26,7 @@ const Stack = createStackNavigator();
  */
 
 
-function TabNavigator({ theme, setTheme }: ThemeProps){
+function TabNavigator({ theme, setTheme, language, toggleLanguage }: ThemeProps & LanguageProps){
   return(
     <Tab.Navigator 
           screenOptions={{
@@ -45,7 +46,9 @@ function TabNavigator({ theme, setTheme }: ThemeProps){
               <FontAwesome name="cog" color={'#000000'} size={40} />
             ),
           }}>
-            {props => <SettingsScreen {...props} theme={theme} setTheme={setTheme} />}
+            {props => <SettingsScreen {...props} 
+            theme={theme} setTheme={setTheme} 
+            language={language} toggleLanguage={toggleLanguage} />}
           </Tab.Screen>
         </Tab.Navigator>
   )
@@ -69,10 +72,18 @@ export default function App() {
     textColor: 'black',
     buttonColor: '#A5CAFF',
   });
-  
-  return (    
+
+const [language, setLanguage] = useState<string>('English');
+
+const toggleLanguage = () => {
+  setLanguage(prevLanguage => prevLanguage === 'English' ? 'Danish' : 'English');
+};
+
+  return (
       <NavigationContainer>
-        <TabNavigator theme={theme} setTheme={setTheme}/>
+        <TabNavigator 
+        theme={theme} setTheme={setTheme}
+        language={language} toggleLanguage={toggleLanguage}/>
       </NavigationContainer>
   );
 }

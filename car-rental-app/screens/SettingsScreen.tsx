@@ -6,8 +6,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faBell, faMoon, faSun, faBook } from '@fortawesome/free-solid-svg-icons';
 import { useNavigation } from '@react-navigation/native';
 import { ThemeProps } from '../types/ThemeProps';
+import { LanguageProps } from '../types/LanguageProps';
 
-function SettingsScreen({ theme, setTheme }: ThemeProps) {
+function SettingsScreen({ theme, setTheme, language, toggleLanguage }: ThemeProps & LanguageProps) {
     const navigation = useNavigation();
 
     const handleDarkMode = () => {
@@ -20,7 +21,7 @@ function SettingsScreen({ theme, setTheme }: ThemeProps) {
     };
 
     const handleLanguages = () => {
-        // Function for language settings
+        toggleLanguage();
     };
 
     // ...and so on for other settings
@@ -43,7 +44,7 @@ function SettingsScreen({ theme, setTheme }: ThemeProps) {
                 <TouchableOpacity onPress={handleNotifications}>
                         <View style={[styles.button, {backgroundColor: theme.buttonColor}, {borderColor: theme.textColor}]}>
                             <Text style={[styles.buttonText, {color: theme.textColor}]}>
-                                Notifications
+                                {language === 'English' ? 'Notifications' : 'Notifikationer'}
                             </Text>
                         </View>
                 </TouchableOpacity>
@@ -59,7 +60,9 @@ function SettingsScreen({ theme, setTheme }: ThemeProps) {
                 <TouchableOpacity onPress={handleDarkMode}>
                     <View style={[styles.button, {backgroundColor: theme.buttonColor}, {borderColor: theme.textColor}]}>
                         <Text style={[styles.buttonText, {color: theme.textColor}]}>
-                            {theme.backgroundColor === 'lightgray' ? "Dark Mode" : "Light Mode"}
+                            {theme.backgroundColor === 'lightgray' 
+                                ? (language === 'English' ? 'Dark Mode' : 'Mørk tilstand') 
+                                : (language === 'English' ? 'Light Mode' : 'Lys tilstand')}
                         </Text>
                     </View>
                 </TouchableOpacity>
@@ -75,7 +78,7 @@ function SettingsScreen({ theme, setTheme }: ThemeProps) {
                 <TouchableOpacity onPress={handleLanguages}>
                         <View style={[styles.button, {backgroundColor: theme.buttonColor}, {borderColor: theme.textColor}]}>
                             <Text style={[styles.buttonText, {color: theme.textColor}]}>
-                                Languages
+                                {language === 'English' ? 'Languages' : 'Sprog'}
                             </Text>
                         </View>
                 </TouchableOpacity>
