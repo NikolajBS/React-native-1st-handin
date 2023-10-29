@@ -7,6 +7,7 @@ import { faBell, faMoon, faSun, faBook } from '@fortawesome/free-solid-svg-icons
 import { useNavigation } from '@react-navigation/native';
 import { ThemeProps } from '../types/ThemeProps';
 import { LanguageProps } from '../types/LanguageProps';
+import { Main } from '../DOWNLOADER/Downloader';
 
 function SettingsScreen({ theme, setTheme, language, toggleLanguage }: ThemeProps & LanguageProps) {
     const navigation = useNavigation();
@@ -22,6 +23,11 @@ function SettingsScreen({ theme, setTheme, language, toggleLanguage }: ThemeProp
 
     const handleLanguages = () => {
         toggleLanguage();
+    };
+
+    const handleDownloads = async () => {
+        console.log("\n\n======STARTING DOWNLOAD======");
+        await Main();
     };
 
     // ...and so on for other settings
@@ -79,6 +85,22 @@ function SettingsScreen({ theme, setTheme, language, toggleLanguage }: ThemeProp
                         <View style={[styles.button, {backgroundColor: theme.buttonColor}, {borderColor: theme.textColor}]}>
                             <Text style={[styles.buttonText, {color: theme.textColor}]}>
                                 {language === 'English' ? 'Languages' : 'Sprog'}
+                            </Text>
+                        </View>
+                </TouchableOpacity>
+            </View>
+            
+{/**
+ * DOWNLOADER BUTTON
+ */}
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <View style={[styles.iconSpace, {borderColor: theme.textColor}]}>
+                    <FontAwesomeIcon icon={faBook} size={32} color={theme.backgroundColor === 'lightgray' ? "black" : "lightgray"}/>
+                </View>
+                <TouchableOpacity onPress={handleDownloads}>
+                        <View style={[styles.button, {backgroundColor: theme.buttonColor}, {borderColor: theme.textColor}]}>
+                            <Text style={[styles.buttonText, {color: theme.textColor}]}>
+                                {language === 'English' ? 'Download' : 'Nedhent'}
                             </Text>
                         </View>
                 </TouchableOpacity>
