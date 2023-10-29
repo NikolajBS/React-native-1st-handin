@@ -1,6 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/Entypo';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faBell, faMoon, faSun, faBook } from '@fortawesome/free-solid-svg-icons';
 import { useNavigation } from '@react-navigation/native';
 import { ThemeProps } from '../types/ThemeProps';
 
@@ -12,12 +15,12 @@ function SettingsScreen({ theme, setTheme }: ThemeProps) {
     };
 
     // Define your settings and corresponding functions here
-    const handleSetting1 = () => {
-        // Function for setting 1
+    const handleNotifications = () => {
+        // Function for notification settings
     };
 
-    const handleSetting2 = () => {
-        // Function for setting 2
+    const handleLanguages = () => {
+        // Function for language settings
     };
 
     // ...and so on for other settings
@@ -25,36 +28,60 @@ function SettingsScreen({ theme, setTheme }: ThemeProps) {
     return (
         <View style={[styles.container, {backgroundColor: theme.backgroundColor }]}>
             <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-                <View style={[styles.button, {backgroundColor: theme.buttonColor}, {borderColor: theme.textColor}]}>
-                    <Text style={[styles.buttonText, {color: theme.textColor}]}>
-                        Go to Home
-                    </Text>
+                <View style={[styles.backArrow]}>
+                    <Icon name="arrow-long-left" size={64} color={theme.backgroundColor === 'lightgray' ? "black" : "lightgray"}/>
                 </View>
             </TouchableOpacity>
+            
+{/**
+ * NOTIFICATIONS BUTTON
+ */}
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <View style={[styles.iconSpace, {borderColor: theme.textColor}]}>
+                    <FontAwesomeIcon icon={faBell} size={32} color={theme.backgroundColor === 'lightgray' ? "black" : "lightgray"}/>
+                </View>
+                <TouchableOpacity onPress={handleNotifications}>
+                        <View style={[styles.button, {backgroundColor: theme.buttonColor}, {borderColor: theme.textColor}]}>
+                            <Text style={[styles.buttonText, {color: theme.textColor}]}>
+                                Notifications
+                            </Text>
+                        </View>
+                </TouchableOpacity>
+            </View>
 
-            <TouchableOpacity onPress={handleSetting1}>
-                <View style={[styles.button, {backgroundColor: theme.buttonColor}, {borderColor: theme.textColor}]}>
-                    <Text style={[styles.buttonText, {color: theme.textColor}]}>
-                        Notifications
-                    </Text>
+{/**
+ * DARK/LIGHT MODE BUTTON
+ */}
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <View style={[styles.iconSpace, {borderColor: theme.textColor}]}>
+                    <FontAwesomeIcon icon={theme.backgroundColor === 'lightgray' ? faMoon : faSun} size={32} color={theme.backgroundColor === 'lightgray' ? "black" : "lightgray"}/>
                 </View>
-            </TouchableOpacity>
+                <TouchableOpacity onPress={handleDarkMode}>
+                    <View style={[styles.button, {backgroundColor: theme.buttonColor}, {borderColor: theme.textColor}]}>
+                        <Text style={[styles.buttonText, {color: theme.textColor}]}>
+                            {theme.backgroundColor === 'lightgray' ? "Dark Mode" : "Light Mode"}
+                        </Text>
+                    </View>
+                </TouchableOpacity>
+            </View>
+            
+{/**
+ * LANGUAGES BUTTON
+ */}
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <View style={[styles.iconSpace, {borderColor: theme.textColor}]}>
+                    <FontAwesomeIcon icon={faBook} size={32} color={theme.backgroundColor === 'lightgray' ? "black" : "lightgray"}/>
+                </View>
+                <TouchableOpacity onPress={handleLanguages}>
+                        <View style={[styles.button, {backgroundColor: theme.buttonColor}, {borderColor: theme.textColor}]}>
+                            <Text style={[styles.buttonText, {color: theme.textColor}]}>
+                                Languages
+                            </Text>
+                        </View>
+                </TouchableOpacity>
+            </View>
 
-            <TouchableOpacity onPress={handleDarkMode}>
-                <View style={[styles.button, {backgroundColor: theme.buttonColor}, {borderColor: theme.textColor}]}>
-                    <Text style={[styles.buttonText, {color: theme.textColor}]}>
-                        {theme.backgroundColor === 'lightgray' ? "Dark Mode" : "Light Mode"}
-                    </Text>
-                </View>
-            </TouchableOpacity>
 
-            <TouchableOpacity onPress={handleSetting2}>
-                <View style={[styles.button, {backgroundColor: theme.buttonColor}, {borderColor: theme.textColor}]}>
-                    <Text style={[styles.buttonText, {color: theme.textColor}]}>
-                        Language
-                    </Text>
-                </View>
-            </TouchableOpacity>
         </View>
     );
 }
@@ -66,6 +93,22 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start',
         justifyContent: 'flex-start',
     },
+    backArrow: {
+        justifyContent: 'center',
+        height: 64,
+        margin: 10,
+    },
+    iconSpace: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 48,
+        height: 48,
+        padding: 12,
+        marginLeft: 10,
+        borderRadius: 10,
+        borderWidth: 2,
+        borderColor: 'black',
+    },
     button: {
         alignItems: 'center',
         justifyContent: 'center',
@@ -75,7 +118,7 @@ const styles = StyleSheet.create({
         height: 48,
         borderRadius: 10,
         margin: 10,
-        borderWidth: 1,
+        borderWidth: 2,
         borderColor: 'black',
     },
     buttonText: {
