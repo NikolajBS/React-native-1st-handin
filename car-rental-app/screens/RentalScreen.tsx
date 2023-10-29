@@ -29,7 +29,7 @@ const  RentalScreen = ({ route }) => {
      </View>
 
     <View style={styles.carContainer}>
-    <Text>car {NameOfCar}</Text>
+    <Text>{NameOfCar}</Text>
     
     <Image source={images[Num]} style={styles.images} />
   
