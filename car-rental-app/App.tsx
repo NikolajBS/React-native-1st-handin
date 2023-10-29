@@ -11,17 +11,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 const Tab = createBottomTabNavigator()
 const Stack = createStackNavigator();
 
-/**
- * 
- * @returns 
- * <Tab.Screen name="Rent" component={} options={{
-            tabBarIcon: () =>(
-              <FontAwesome name="car" color={'#000000'} size={35} />
-            ),
-          }}/>
- */
-
-
 function TabNavigator(){
   return(
     <Tab.Navigator 

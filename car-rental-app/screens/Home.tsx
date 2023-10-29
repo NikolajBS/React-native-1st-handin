@@ -48,15 +48,15 @@ const HomeScreen = ({ navigation }) =>{
       </View>
 
       <View style={styles.flexbox}>
-        <TouchableOpacity onPress={() =>{navigation.navigate('Rental', {NameOfCar: 'skibidi', Num: 0})}}>
+        <TouchableOpacity onPress={() =>{navigation.navigate('Rental', {NameOfCar: 'Car 1', Num: 0})}}>
         <View style={styles.box}>
           <Image source={require('../imgs/car1.jpg')} style={styles.images} />
-          <Text style={styles.txtcolor}>{carName}</Text>
+          <Text style={styles.txtcolor}>Car 1</Text>
           <Text>This car is very cool, now please rent it.</Text>
         </View>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() =>{navigation.navigate('Rental', {NameOfCar: 'skibidi2', Num: 1})}}>
+        <TouchableOpacity onPress={() =>{navigation.navigate('Rental', {NameOfCar: 'Car 2', Num: 1})}}>
         <View style={styles.box}>
           <Image source={require('../imgs/car2.jpg')} style={styles.images} />
           <Text style={styles.txtcolor}>Car 2</Text>
