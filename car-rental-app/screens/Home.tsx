@@ -3,13 +3,13 @@ import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView } from 'rea
 import { FontAwesome } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import RentalScreen from './screens/RentalScreen';
-
 import {images} from '../images';
+
+
 const HomeScreen = ({ navigation }) => {
   const [carData, setCarData] = useState([]);
 
   useEffect(() => {
-    // Fetch car data when the component mounts
     fetchCarData();
   }, []);
 

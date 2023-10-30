@@ -13,7 +13,7 @@ import SettingScreen from './screens/SettingsScreen';
 const Stack= createStackNavigator();
 const Tab=createBottomTabNavigator();
 
-const TabNavigator=({ theme, setTheme, language, toggleLanguage }: ThemeProps & LanguageProps) => {
+const TabNavigator=() => {
 return(
 <Tab.Navigator
 screenOptions={{
