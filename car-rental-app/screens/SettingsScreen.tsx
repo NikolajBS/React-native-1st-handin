@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button, TouchableOpacity, SafeAreaView } from 'react-native';
+import { StyleSheet, Text, View, Button, TouchableOpacity, SafeAreaView, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faBell, faMoon, faSun, faBook } from '@fortawesome/free-solid-svg-icons';
@@ -42,7 +42,8 @@ function SettingsScreen({ navigation }) {
 
     // Define your settings and corresponding functions here
     const handleNotifications = () => {
-        // Function for notification settings
+        const notificationText = activeSettings.languages.language === 'English' ? 'You have 0 Notifications' : 'Du har 0 Notifikationer';
+        Alert.alert(notificationText);
     };
 
     const handleLanguages = () => {
@@ -67,7 +68,7 @@ function SettingsScreen({ navigation }) {
                 styles.container, 
                 {backgroundColor: activeSettings.themes.theme.backgroundColor },
                 ]}>
-                <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
+                <TouchableOpacity onPress={() => navigation.navigate('Home')}>
                     <View style={[styles.backArrow]}>
                         <Icon name="arrow-long-left" size={64} color={activeSettings.themes.theme.iconColor}/>
                     </View>

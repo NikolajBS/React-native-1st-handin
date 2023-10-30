@@ -44,10 +44,8 @@ const ProfileScreen = ({ navigation }) => {
 
   const handleNext = () => {
     if (name && address && email && Description && password) {
-      // All fields are filled, so navigate to the home page
       navigation.navigate('HomeScreen');
     } else {
-      // Not all fields are filled, you can show an alert or message to the user
       alert('Please fill in all the required fields before proceeding.');
     }
   };
