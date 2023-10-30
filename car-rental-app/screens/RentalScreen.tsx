@@ -11,15 +11,16 @@ const  RentalScreen = ({ route }) => {
   const alertUser = () => {
     setIsRenting(!isRenting);
     if(isRenting){
-    Alert.alert('Added to Cart');
+    Alert.alert('Car booked');
     } else{
     Alert.alert('Renting canceled');
     }
 
   };
 
-  const {NameOfCar, Num} = route.params;
-  
+const { NameOfCar, Model, Num, price_per_day, location } = route.params;
+
+
   return (
     <View style={styles.container}>
      <View style={styles.menuWrapper}>
@@ -29,17 +30,21 @@ const  RentalScreen = ({ route }) => {
      </View>
 
     <View style={styles.carContainer}>
-    <Text>{NameOfCar}</Text>
-    
+    <Text  style={styles.nameText}>{NameOfCar}</Text>
+      <Text  style={styles.nameText}>{Model}</Text>
     <Image source={images[Num]} style={styles.images} />
-  
+
     </View>
 
     <View style={styles.descriptionWrapper}>
 
     <View style={styles.priceIcon}>
     <Icon name="price-tag" size={40} color="black" />
-    <Text>price</Text>
+    <Text>{price_per_day}/DDK Per Day</Text>
+    </View>
+    <View>
+     <Icon name="location-pin" size={40} color="black" />
+     <Text>{location}</Text>
     </View>
 
 
@@ -71,8 +76,7 @@ const styles = StyleSheet.create({
 
   carContainer: {
   flex:1,
-  backgroundColor:'#f7f1e1',
-  borderWidth:1,
+  backgroundColor:'#f0ae5d',
   justifyContent:'center',
   alignItems: 'center',
   margin:90,
@@ -100,6 +104,11 @@ const styles = StyleSheet.create({
   images: {
     width: 390,
     height: 200
+  },
+  nameText: {
+  fontSize:20,
+  fontWeight: 'bold',
+  color:'red',
   }
 });
 

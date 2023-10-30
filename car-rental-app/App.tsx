@@ -1,80 +1,72 @@
-import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
+import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import RentalScreen from './screens/RentalScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import HomeScreen from './screens/Home';
-import ProfileScreen from './screens/ProfileScreen';
-import SettingsScreen from './screens/SettingsScreen';
-import { ThemeProps } from './types/ThemeProps';
-import { LanguageProps } from './types/LanguageProps';
-import { FontAwesome } from '@expo/vector-icons';
 import { createStackNavigator } from '@react-navigation/stack';
+import Home from './screens/Home'; // Import your Home screen component
+import RentalScreen from './screens/RentalScreen';
+import Profile from './screens/ProfileScreen';
+import { FontAwesome } from '@expo/vector-icons';
+import SettingScreen from './screens/SettingsScreen';
 
-const Tab = createBottomTabNavigator()
-const Stack = createStackNavigator();
+const Stack= createStackNavigator();
+const Tab=createBottomTabNavigator();
 
-
-function TabNavigator({ theme, setTheme, language, toggleLanguage }: ThemeProps & LanguageProps){
-  return(
-    <Tab.Navigator 
-          screenOptions={{
+const TabNavigator=() => {
+return(
+<Tab.Navigator
+screenOptions={{
             tabBarStyle: {
               backgroundColor: '#335c67'
             }
-          }}>
-          <Tab.Screen name="Home" component={StackNavigator} options={{
+          }}
+
+>
+<Tab.Screen name='Home' component={Home}
+ options={{
             tabBarStyle: { backgroundColor: '#335c67'},
-            tabBarLabel: 'Home', 
+            tabBarLabel: 'Home',
             tabBarIcon: () => (
             <FontAwesome name="home" color={'#FFFFFF'} size={40} />
-          ),}}/>
-          <Tab.Screen name="Settings" options={{
+          ),}}
+/>
+<Tab.Screen name="Settings" component={SettingScreen} options={{
             tabBarLabel: 'Settings',
             tabBarIcon: () => (
               <FontAwesome name="cog" color={'#FFFFFF'} size={40} />
             ),
-          }}>
-            {props => <SettingsScreen {...props} 
-            theme={theme} setTheme={setTheme} 
-            language={language} toggleLanguage={toggleLanguage} />}
-          </Tab.Screen>
-        </Tab.Navigator>
-  )
+          }}/>
+</Tab.Navigator>
+)
 }
 
-function StackNavigator(){
-  return(
-    <Stack.Navigator>
-      <Stack.Screen name='HomeScreen' component={HomeScreen} options={{
-          headerShown: false,
-        }} />
-      <Stack.Screen name='Profile' component={ProfileScreen}/>
-      <Stack.Screen name='Rental' component={RentalScreen}/>
-    </Stack.Navigator>
-  )
-}
+
+
 export default function App() {
-
-  const [theme, setTheme] = useState({
-    backgroundColor: 'lightgray',
-    textColor: 'black',
-    buttonColor: '#A5CAFF',
-  });
-
-const [language, setLanguage] = useState<string>('English');
-
-const toggleLanguage = () => {
-  setLanguage(prevLanguage => prevLanguage === 'English' ? 'Danish' : 'English');
-};
-
   return (
-      <NavigationContainer>
-        <TabNavigator 
-        theme={theme} setTheme={setTheme}
-        language={language} toggleLanguage={toggleLanguage}/>
-      </NavigationContainer>
+
+     <NavigationContainer>
+             <Stack.Navigator>
+             <Stack.Screen name='TabNavigator' component={TabNavigator} options={{headerShown: false}}
+             />
+             <Stack.Screen name='Rental' component={RentalScreen}/>
+             <Stack.Screen name='Profile' component={Profile}/>
+             </Stack.Navigator>
+           </NavigationContainer>
   );
+
+
 }
 
+/*const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
+*/
+
+export default App;

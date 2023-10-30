@@ -1,119 +1,117 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import ProfileScreen from './ProfileScreen';
-import { useEffect } from 'react';
+import RentalScreen from './screens/RentalScreen';
+import {images} from '../images';
 
 
-const HomeScreen = ({ navigation }) =>{
+const HomeScreen = ({ navigation }) => {
+  const [carData, setCarData] = useState([]);
 
-  
-  const storeData = async(key:string, value:string) =>{
-    try{
-      await AsyncStorage.setItem(key, value);
-    } catch(e) {
-      // handle error
-    }};
-    
-    storeData("car1","Nissan Skyline");
-    storeData("car2","Ford GT");
-    
+  useEffect(() => {
+    fetchCarData();
+  }, []);
 
-    const retrieveData = async (key:string) => {
-      try {
-        const storedValue = await AsyncStorage.getItem(key);
-        if (storedValue) {
-          const parsedValue = JSON.stringify(storedValue);
-          console.log(parsedValue); // This will print the actual data
-          return parsedValue;
-        } else {
-          console.log('No data found in AsyncStorage');
-        }
-      } catch (error) {
-        console.error(error);
+  const fetchCarData = async () => {
+    try {
+      const response = await fetch('https://car-rentals.ladegaardmoeller.dk/cars');
+      if (response.ok) {
+        const data = await response.json();
+        setCarData(data);
+      } else {
+        console.error('Failed to fetch car data');
       }
-    };
-    
-    
-    return(
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const renderCarItems = () => {
+    return carData.map((car, index) => (
+      <TouchableOpacity
+        key={index}
+        onPress={() => navigation.navigate('Rental', { NameOfCar: car.make, Model: car.model, Num: index, price_per_day: car.price_per_day, location: car.location })}
+      >
+        <View style={styles.carContainer}>
+          <View style={styles.carBox}>
+            <Image source={images[index]} style={styles.carImage} />
+            <View style={styles.carInfo}>
+              <Text style={styles.carName}>{car.make}</Text>
+              <Text style={styles.carModel}>{car.model}</Text>
+            </View>
+          </View>
+        </View>
+      </TouchableOpacity>
+    ));
+  };
+
+  return (
     <View style={styles.container}>
       <View style={styles.topArea}>
         <FontAwesome name="align-justify" color={'#000000'} size={40} />
         <View style={styles.smallSpace}></View>
         <FontAwesome name="search" color={'#000000'} size={40} />
-        <View style={styles.space}></View>  
-        <TouchableOpacity onPress={() =>{navigation.navigate('Profile')}}>
-        <FontAwesome name="user" color={'#000000'} size={40} style={styles.userIcon}/>
+        <View style={styles.space}></View>
+        <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+          <FontAwesome name="user" color={'#000000'} size={40} style={styles.userIcon} />
         </TouchableOpacity>
       </View>
 
-      <View style={styles.flexbox}>
-        <TouchableOpacity onPress={() =>{navigation.navigate('Rental', {NameOfCar: 'Nissan Skyline', Num: 0})}}>
-        <View style={styles.box}>
-          <Image source={require('../imgs/car1.jpg')} style={styles.images} />
-          <Text style={styles.txtcolor}>Nissan Skyline</Text>
-          <Text>This car is very cool, now please rent it.</Text>
-        </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() =>{navigation.navigate('Rental', {NameOfCar: 'Ford GT', Num: 1})}}>
-        <View style={styles.box}>
-          <Image source={require('../imgs/car2.jpg')} style={styles.images} />
-          <Text style={styles.txtcolor}>Ford GT</Text>
-          <Text>This car is very cool, now please rent it.</Text>
-        </View>
-        </TouchableOpacity>
-      </View>
-
+      <ScrollView style={styles.scrollView}>{renderCarItems()}</ScrollView>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#e09f3e',
     alignItems: 'center',
-    justifyContent: 'center', 
-    flexDirection: 'column'
+    justifyContent: 'center',
+    flexDirection: 'column',
   },
   topArea: {
     flexDirection: 'row',
-    margin: 1
-  },
-  flexbox: {
-    flex: 1,
-    flexDirection: 'column',
-    margin: 5
-  },
-  box: {
-    backgroundColor: '#F0AA42',
-    alignItems: 'center',
     margin: 1,
-    borderWidth: 1,
-    borderColor: 'black',
-    borderRadius: 10
-    
   },
-  images: {
-    width: 390,
-    height: 200
+  carContainer: {
+    backgroundColor: '#F0AA42',
+    margin: 10,
+    borderRadius: 10,
   },
-  txtcolor: {
-    color: 'red',
-    fontSize: 30
+  carBox: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 10,
   },
-  userIcon:{
-    alignSelf: 'flex-end'
+  carImage: {
+    width: 80,
+    height: 80,
+    borderRadius: 5,
+  },
+  carInfo: {
+    marginLeft: 10,
+  },
+  carName: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  carModel: {
+    fontSize: 14,
+  },
+  userIcon: {
+    alignSelf: 'flex-end',
   },
   space: {
-    width: 260
+    width: 260,
   },
   smallSpace: {
-    width: 15
-  }
+    width: 15,
+  },
+  scrollView: {
+    width: '100%',
+  },
 });
 
-export default HomeScreen
+export default HomeScreen;
