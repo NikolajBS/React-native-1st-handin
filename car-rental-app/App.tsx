@@ -10,35 +10,45 @@ import Profile from './screens/ProfileScreen';
 import SettingsScreen from './screens/SettingsScreen';
 import { ActiveSettingsContext } from './contexts/ActiveSettingsContext';
 import { FontAwesome } from '@expo/vector-icons';
+import BookingScreen from './screens/BookingScreen';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-const TabNavigator = () => {
-  return (
-    <Tab.Navigator
-      screenOptions={{
-        tabBarStyle: {
-          backgroundColor: '#335c67'
-        }
-      }}>
-      <Tab.Screen name='Home' component={Home}
-        options={{
-          tabBarStyle: { backgroundColor: '#335c67' },
-          tabBarLabel: 'Home',
-          tabBarIcon: () => (
+const TabNavigator=() => {
+return(
+<Tab.Navigator
+screenOptions={{
+            tabBarStyle: {
+              backgroundColor: '#335c67'
+            }
+          }}
+
+>
+<Tab.Screen name='Home' component={Home}
+ options={{
+            tabBarStyle: { backgroundColor: '#335c67'},
+            tabBarLabel: 'Home',
+            tabBarIcon: () => (
             <FontAwesome name="home" color={'#FFFFFF'} size={40} />
-          ),
-        }}/>
-      <Tab.Screen name="Settings" component={SettingsScreen} options={{
-        tabBarStyle: { backgroundColor: '#335c67'},
-        tabBarLabel: 'Settings',
-        tabBarIcon: () => (
-          <FontAwesome name="cog" color={'#FFFFFF'} size={40} />
-        ),
-      }}/>
-    </Tab.Navigator>
-  )
+          ),}}
+/>
+<Tab.Screen name="Settings" component={SettingScreen} options={{
+            tabBarLabel: 'Settings',
+            tabBarIcon: () => (
+              <FontAwesome name="cog" color={'#FFFFFF'} size={40} />
+            ),
+          }}/>
+
+<Tab.Screen name="Booking" component={BookingScreen} options={{
+  tabBarLabel: 'Booking',
+  tabBarIcon: () => (
+    <FontAwesome name="calendar" color={'#FFFFFF'} size={40} />
+  ),
+}} />
+
+</Tab.Navigator>
+)
 }
 
 
@@ -75,6 +85,7 @@ export default function App() {
           <Stack.Screen name='Rental' component={RentalScreen} />
           <Stack.Screen name='Profile' component={Profile} />
           <Stack.Screen name='SettingsScreen' component={SettingsScreen} />
+          <Stack.Screen name='Booking' component={BookingScreen}/>
         </Stack.Navigator>
       </NavigationContainer>
     </ActiveSettingsContext.Provider>
