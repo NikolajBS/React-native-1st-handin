@@ -33,7 +33,7 @@ screenOptions={{
             <FontAwesome name="home" color={'#FFFFFF'} size={40} />
           ),}}
 />
-<Tab.Screen name="Settings" component={SettingScreen} options={{
+<Tab.Screen name="Settings" component={SettingsScreen} options={{
             tabBarLabel: 'Settings',
             tabBarIcon: () => (
               <FontAwesome name="cog" color={'#FFFFFF'} size={40} />
