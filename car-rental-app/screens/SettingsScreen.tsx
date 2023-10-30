@@ -1,117 +1,171 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button, TouchableOpacity, Alert } from 'react-native';
+import { StyleSheet, Text, View, Button, TouchableOpacity, SafeAreaView, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faBell, faBook, faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
+import { faBell, faMoon, faSun, faBook } from '@fortawesome/free-solid-svg-icons';
 import { useNavigation } from '@react-navigation/native';
+import { ActiveSettingsProps } from '../types/ActiveSettingsProps';
+import { ActiveSettingsContext } from '../contexts/ActiveSettingsContext';
 
-function SettingsScreen() {
-    const navigation = useNavigation();
-    const [language, setLanguage] = useState('English');
-    const [isDarkMode, setDarkMode] = useState(false);
+function SettingsScreen({ navigation }) {
+    //const navigation = useNavigation();
+    const { activeSettings, setActiveSettings }: ActiveSettingsProps = React.useContext(ActiveSettingsContext);
 
+    const handleDarkMode = () => {
+        const newTheme = activeSettings.themes.darkMode ? {
+            backgroundColor: '#B28440',
+            containerColor: '#F0AA42', //orange
+            textColor: 'black',
+            buttonColor: '#E0A450',
+            iconColor: 'black',
+        } : {
+            backgroundColor: '#1A222D', //very dark blue
+            containerColor: '#172C4C', //dark blue
+            textColor: 'lightgray',
+            buttonColor: '#526580', //very light gray
+            iconColor: 'lightgray',
+        };
+    
+        setActiveSettings(prevSettings => {
+            const newSettings = {
+                ...prevSettings,
+                themes: {
+                    ...prevSettings.themes,
+                    theme: newTheme,
+                    darkMode: !prevSettings.themes.darkMode,
+                },
+            };
+    
+            return newSettings;
+        });
+    };
+
+    // Define your settings and corresponding functions here
     const handleNotifications = () => {
-        const notificationText = language === 'English' ? 'You have 0 Notifications' : 'Du har 0 Notifikationer';
+        const notificationText = activeSettings.languages.language === 'English' ? 'You have 0 Notifications' : 'Du har 0 Notifikationer';
         Alert.alert(notificationText);
     };
 
     const handleLanguages = () => {
-        if (language === 'English') {
-            setLanguage('Danish');
-        } else {
-            setLanguage('English');
-        }
+        const newLanguage = activeSettings.languages.language === 'English' ? 'Danish' : 'English';
+    
+        setActiveSettings(prevSettings => ({
+            ...prevSettings,
+            languages: {
+                ...prevSettings.languages,
+                language: newLanguage,
+            },
+        }));
     };
 
-    const handleDarkMode = () => {
-        setDarkMode(!isDarkMode);
-    };
-
-    const buttonText = isDarkMode
-        ? language === 'English'
-            ? 'Dark Mode'
-            : 'Mørk tilstand'
-        : language === 'English'
-            ? 'Light Mode'
-            : 'Lystilstand';
-
-    const buttonBackgroundColor = isDarkMode ? '#1E90FF' : '#A5CAFF';
-    const buttonTextColor = isDarkMode ? 'white' : 'black';
-
-    const containerStyle = {
-        flex: 1,
-        backgroundColor: isDarkMode ? '#121212' : 'lightgray',
-        alignItems: 'flex-start',
-        justifyContent: 'flex-start',
-    };
-
-    const buttonTextStyle = {
-        color: buttonTextColor,
-    };
+    // ...and so on for other settings
 
     return (
-        <View style={[styles.container, containerStyle]}>
-            <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-                <View style={[styles.backArrow]}>
-                    <Icon name="arrow-long-left" size={64} color={isDarkMode ? 'white' : 'black'} />
-                </View>
-            </TouchableOpacity>
-
-            {/**
-             * NOTIFICATIONS BUTTON
-             */}
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <View style={[styles.iconSpace]}>
-                    <FontAwesomeIcon icon={faBell} size={32} color={isDarkMode ? 'white' : 'black'} />
-                </View>
-                <TouchableOpacity onPress={handleNotifications}>
-                    <View style={[styles.button, { backgroundColor: buttonBackgroundColor }]}>
-                        <Text style={[styles.buttonText, buttonTextStyle]}>
-                            {language === 'English' ? 'Notifications' : 'Notifikationer'}
-                        </Text>
+        <SafeAreaView style={{
+            flex: 1,
+        }}>
+            <View style={[
+                styles.container, 
+                {backgroundColor: activeSettings.themes.theme.backgroundColor },
+                ]}>
+                <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+                    <View style={[styles.backArrow]}>
+                        <Icon name="arrow-long-left" size={64} color={activeSettings.themes.theme.iconColor}/>
                     </View>
                 </TouchableOpacity>
-            </View>
-
-            {/**
-             * LANGUAGES BUTTON
-             */}
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <View style={[styles.iconSpace]}>
-                    <FontAwesomeIcon icon={faBook} size={32} color={isDarkMode ? 'white' : 'black'} />
-                </View>
-                <TouchableOpacity onPress={handleLanguages}>
-                    <View style={[styles.button, { backgroundColor: buttonBackgroundColor }]}>
-                        <Text style={[styles.buttonText, buttonTextStyle]}>
-                            {language === 'English' ? 'Languages' : 'Sprog'}
-                        </Text>
+                
+{/**
+ * NOTIFICATIONS BUTTON
+ */}
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                    <View style={[styles.iconSpace, {borderColor: activeSettings.themes.theme.textColor}]}>
+                        <FontAwesomeIcon icon={faBell} size={32} color={activeSettings.themes.theme.iconColor}/>
                     </View>
-                </TouchableOpacity>
-            </View>
-
-            {/**
-             * DARK MODE BUTTON
-             */}
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <View style={[styles.iconSpace]}>
-                    <FontAwesomeIcon icon={isDarkMode ? faMoon : faSun} size={32} color={isDarkMode ? 'white' : 'black'} />
+                    <TouchableOpacity onPress={handleNotifications}>
+                            <View style={[
+                                styles.button, 
+                                {backgroundColor: activeSettings.themes.theme.buttonColor}, 
+                                {borderColor: activeSettings.themes.theme.textColor},
+                                ]}>
+                                <Text style={[
+                                    styles.buttonText, 
+                                    {color: activeSettings.themes.theme.textColor},
+                                    ]}>
+                                    {activeSettings.languages.language === 'English' ? 'Notifications' : 'Notifikationer'}
+                                </Text>
+                            </View>
+                    </TouchableOpacity>
                 </View>
-                <TouchableOpacity onPress={handleDarkMode}>
-                    <View style={[styles.button, { backgroundColor: buttonBackgroundColor }]}>
-                        <Text style={[styles.buttonText, buttonTextStyle]}>
-                            {buttonText}
-                        </Text>
+
+{/**
+ * DARK/LIGHT MODE BUTTON
+ */}
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                    <View id='dark-light-mode-icon' style={[
+                        styles.iconSpace, 
+                        {borderColor: activeSettings.themes.theme.textColor},
+                        ]}>
+                        <FontAwesomeIcon 
+                            icon={activeSettings.themes.darkMode ? faSun : faMoon} 
+                            size={32} 
+                            color={activeSettings.themes.theme.iconColor}
+                        />
                     </View>
-                </TouchableOpacity>
+                    <TouchableOpacity onPress={handleDarkMode}>
+                        <View style={[
+                            styles.button, 
+                            {backgroundColor: activeSettings.themes.theme.buttonColor}, 
+                            {borderColor: activeSettings.themes.theme.textColor},
+                            ]}>
+                            <Text style={[
+                                styles.buttonText, 
+                                {color: activeSettings.themes.theme.textColor},
+                                ]}>
+                                {activeSettings.themes.darkMode 
+                                    ? (activeSettings.languages.language === 'English' ? 'Light Mode' : 'Lys tilstand') 
+                                    : (activeSettings.languages.language === 'English' ? 'Dark Mode' : 'Mørk tilstand')}
+                            </Text>
+                        </View>
+                    </TouchableOpacity>
+                </View>
+                
+{/**
+ * LANGUAGES BUTTON
+ */}
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                    <View style={[
+                        styles.iconSpace, 
+                        {borderColor: activeSettings.themes.theme.textColor},
+                        ]}>
+                        <FontAwesomeIcon 
+                        icon={faBook} 
+                        size={32} 
+                        color={activeSettings.themes.theme.iconColor}/>
+                    </View>
+                    <TouchableOpacity onPress={handleLanguages}>
+                            <View style={[
+                                styles.button, 
+                                {backgroundColor: activeSettings.themes.theme.buttonColor}, 
+                                {borderColor: activeSettings.themes.theme.textColor},
+                                ]}>
+                                <Text style={[
+                                    styles.buttonText, 
+                                    {color: activeSettings.themes.theme.textColor},
+                                    ]}>
+                                    {activeSettings.languages.language === 'English' ? 'Languages' : 'Sprog'}
+                                </Text>
+                            </View>
+                    </TouchableOpacity>
+                </View>
             </View>
-        </View>
+        </SafeAreaView>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'lightgray',
+        backgroundColor: '#fff',
         alignItems: 'flex-start',
         justifyContent: 'flex-start',
     },
@@ -128,16 +182,20 @@ const styles = StyleSheet.create({
         padding: 12,
         marginLeft: 10,
         borderRadius: 10,
+        borderWidth: 2,
+        borderColor: 'black',
     },
     button: {
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#A5CAFF',
+        backgroundColor: '#DDDDDD',
         padding: 10,
         width: 128,
         height: 48,
         borderRadius: 10,
         margin: 10,
+        borderWidth: 2,
+        borderColor: 'black',
     },
     buttonText: {
         fontSize: 16,
