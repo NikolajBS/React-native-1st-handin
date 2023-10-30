@@ -8,7 +8,7 @@ import Home from './screens/Home'; // Import your Home screen component
 import RentalScreen from './screens/RentalScreen';
 import Profile from './screens/ProfileScreen';
 import { FontAwesome } from '@expo/vector-icons';
-import SettingScreen from './screens/SettingScreen';
+import SettingScreen from './screens/SettingsScreen';
 
 const Stack= createStackNavigator();
 const Tab=createBottomTabNavigator();
