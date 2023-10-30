@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
+import { ActiveSettingsProps } from '../types/ActiveSettingsProps';
+import { ActiveSettingsContext } from '../contexts/ActiveSettingsContext';
 import { useNavigation } from '@react-navigation/native';
 import RentalScreen from './screens/RentalScreen';
 import {images} from '../images';
 
 
 const HomeScreen = ({ navigation }) => {
+  const { activeSettings }: ActiveSettingsProps = React.useContext(ActiveSettingsContext);
   const [carData, setCarData] = useState([]);
 
   useEffect(() => {
@@ -33,12 +36,12 @@ const HomeScreen = ({ navigation }) => {
         key={index}
         onPress={() => navigation.navigate('Rental', { NameOfCar: car.make, Model: car.model, Num: index, price_per_day: car.price_per_day, location: car.location })}
       >
-        <View style={styles.carContainer}>
+        <View style={[styles.carContainer, { backgroundColor: activeSettings.themes.theme.containerColor }]}>
           <View style={styles.carBox}>
             <Image source={images[index]} style={styles.carImage} />
             <View style={styles.carInfo}>
-              <Text style={styles.carName}>{car.make}</Text>
-              <Text style={styles.carModel}>{car.model}</Text>
+              <Text style={[styles.carName, { color: activeSettings.themes.theme.textColor }]}>{car.make}</Text>
+              <Text style={[styles.carModel, { color: activeSettings.themes.theme.textColor }]}>{car.model}</Text>
             </View>
           </View>
         </View>
@@ -47,14 +50,18 @@ const HomeScreen = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: activeSettings.themes.theme.backgroundColor }]}>
       <View style={styles.topArea}>
-        <FontAwesome name="align-justify" color={'#000000'} size={40} />
+        <FontAwesome name="align-justify" color={activeSettings.themes.theme.iconColor} size={40} />
         <View style={styles.smallSpace}></View>
-        <FontAwesome name="search" color={'#000000'} size={40} />
+        <FontAwesome name="search" color={activeSettings.themes.theme.iconColor} size={40} />
         <View style={styles.space}></View>
-        <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
-          <FontAwesome name="user" color={'#000000'} size={40} style={styles.userIcon} />
+        <TouchableOpacity onPress={() => { navigation.navigate('SettingsScreen') }}>
+          <FontAwesome name="cog" color={activeSettings.themes.theme.iconColor} size={40} style={styles.userIcon} />
+        </TouchableOpacity>
+        <View style={styles.smallSpace}></View>
+        <TouchableOpacity onPress={() => { navigation.navigate('Profile') }}>
+          <FontAwesome name="user" color={activeSettings.themes.theme.iconColor} size={40} style={styles.userIcon} />
         </TouchableOpacity>
       </View>
 
@@ -104,7 +111,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
   },
   space: {
-    width: 260,
+    width: 205,
   },
   smallSpace: {
     width: 15,

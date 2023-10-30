@@ -7,12 +7,13 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Home from './screens/Home'; // Import your Home screen component
 import RentalScreen from './screens/RentalScreen';
 import Profile from './screens/ProfileScreen';
+import SettingsScreen from './screens/SettingsScreen';
+import { ActiveSettingsContext } from './contexts/ActiveSettingsContext';
 import { FontAwesome } from '@expo/vector-icons';
-import SettingScreen from './screens/SettingsScreen';
 import BookingScreen from './screens/BookingScreen';
 
-const Stack= createStackNavigator();
-const Tab=createBottomTabNavigator();
+const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
 const TabNavigator=() => {
 return(
@@ -53,17 +54,41 @@ screenOptions={{
 
 
 export default function App() {
+  
+  const [theme, setTheme] = useState({
+    backgroundColor: '#B28440',
+    containerColor: '#F0AA42', //orange
+    textColor: 'black',
+    buttonColor: '#E0A450',
+    iconColor: 'black',
+  });
+  
+  const [language, setLanguage] = useState<string>('English');
+  
+  const [activeSettings, setActiveSettings] = useState({
+    themes: {
+      darkMode: false,
+      theme,
+      setTheme,
+    },
+    languages: {
+      language,
+      setLanguage,
+    },
+  });
+  
   return (
-
-     <NavigationContainer>
-             <Stack.Navigator>
-             <Stack.Screen name='TabNavigator' component={TabNavigator} options={{headerShown: false}}
-             />
-             <Stack.Screen name='Rental' component={RentalScreen}/>
-             <Stack.Screen name='Profile' component={Profile}/>
-             <Stack.Screen name='Booking' component={BookingScreen}/>
-             </Stack.Navigator>
-           </NavigationContainer>
+    <ActiveSettingsContext.Provider value={{ activeSettings, setActiveSettings }}>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name='TabNavigator' component={TabNavigator} options={{ headerShown: false }} />
+          <Stack.Screen name='Rental' component={RentalScreen} />
+          <Stack.Screen name='Profile' component={Profile} />
+          <Stack.Screen name='SettingsScreen' component={SettingsScreen} />
+          <Stack.Screen name='Booking' component={BookingScreen}/>
+        </Stack.Navigator>
+      </NavigationContainer>
+    </ActiveSettingsContext.Provider>
   );
 
 
@@ -78,5 +103,3 @@ export default function App() {
   },
 });
 */
-
-export default App;
