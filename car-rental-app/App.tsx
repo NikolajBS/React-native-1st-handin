@@ -10,7 +10,6 @@ import Profile from './screens/ProfileScreen';
 import SettingsScreen from './screens/SettingsScreen';
 import { ActiveSettingsContext } from './contexts/ActiveSettingsContext';
 import { FontAwesome } from '@expo/vector-icons';
-import SettingScreen from './screens/SettingsScreen';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -31,7 +30,7 @@ const TabNavigator = () => {
             <FontAwesome name="home" color={'#FFFFFF'} size={40} />
           ),
         }}/>
-      <Tab.Screen name="Settings" component={SettingScreen} options={{
+      <Tab.Screen name="Settings" component={SettingsScreen} options={{
         tabBarStyle: { backgroundColor: '#335c67'},
         tabBarLabel: 'Settings',
         tabBarIcon: () => (
