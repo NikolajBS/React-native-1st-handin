@@ -1,5 +1,4 @@
 export interface LanguageProps {
-    language: string;
-    toggleLanguage: () => void;
-  }
-  
+  language: string;
+  setLanguage: React.Dispatch<React.SetStateAction<string>>;
+}
