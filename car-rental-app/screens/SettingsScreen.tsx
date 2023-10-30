@@ -1,12 +1,9 @@
-import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button, TouchableOpacity, SafeAreaView } from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faBell, faMoon, faSun, faBook } from '@fortawesome/free-solid-svg-icons';
 import { useNavigation } from '@react-navigation/native';
-import { ThemeProps } from '../types/ThemeProps';
-import { LanguageProps } from '../types/LanguageProps';
 import { ActiveSettingsProps } from '../types/ActiveSettingsProps';
 
 function SettingsScreen({ activeSettings, setActiveSettings }: ActiveSettingsProps) {

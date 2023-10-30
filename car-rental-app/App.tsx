@@ -7,8 +7,6 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from './screens/Home';
 import ProfileScreen from './screens/ProfileScreen';
 import SettingsScreen from './screens/SettingsScreen';
-import { ThemeProps } from './types/ThemeProps';
-import { LanguageProps } from './types/LanguageProps';
 import { ActiveSettingsProps } from './types/ActiveSettingsProps';
 import { FontAwesome } from '@expo/vector-icons';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -33,6 +31,7 @@ function TabNavigator({ activeSettings, setActiveSettings }: ActiveSettingsProps
         ),
       }} />
       <Tab.Screen name="Settings" options={{
+        tabBarStyle: { backgroundColor: '#a4a4a4' },
         tabBarLabel: 'Settings',
         tabBarIcon: () => (
           <FontAwesome name="cog" color={'#000000'} size={40} />
