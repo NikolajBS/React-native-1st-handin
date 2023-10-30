@@ -1,69 +1,77 @@
+import React from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ActiveSettingsProps } from '../types/ActiveSettingsProps';
+import { ActiveSettingsContext } from '../contexts/ActiveSettingsContext';
 import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import ProfileScreen from './ProfileScreen';
 import { useEffect } from 'react';
 
 
-const HomeScreen = ({ navigation }) =>{
+const HomeScreen = ({ navigation }) => {
+  const { activeSettings }: ActiveSettingsProps = React.useContext(ActiveSettingsContext);
 
-  
-  const storeData = async(key:string, value:string) =>{
-    try{
+  const storeData = async (key: string, value: string) => {
+    try {
       await AsyncStorage.setItem(key, value);
-    } catch(e) {
+    } catch (e) {
       // handle error
-    }};
-    
-    storeData("car1","Nissan Skyline");
-    storeData("car2","Ford GT");
-    
+    }
+  };
 
-    const retrieveData = async (key:string) => {
-      try {
-        const storedValue = await AsyncStorage.getItem(key);
-        if (storedValue) {
-          const parsedValue = JSON.stringify(storedValue);
-          console.log(parsedValue); // This will print the actual data
-          return parsedValue;
-        } else {
-          console.log('No data found in AsyncStorage');
-        }
-      } catch (error) {
-        console.error(error);
+  storeData("car1", "Nissan Skyline");
+  storeData("car2", "Ford GT");
+
+
+  const retrieveData = async (key: string) => {
+    try {
+      const storedValue = await AsyncStorage.getItem(key);
+      if (storedValue) {
+        const parsedValue = JSON.stringify(storedValue);
+        console.log(parsedValue); // This will print the actual data
+        return parsedValue;
+      } else {
+        console.log('No data found in AsyncStorage');
       }
-    };
-    
-    
-    return(
-    <View style={styles.container}>
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+
+  return (
+    <View style={[styles.container, { backgroundColor: activeSettings.themes.theme.backgroundColor }]}>
       <View style={styles.topArea}>
-        <FontAwesome name="align-justify" color={'#000000'} size={40} />
+        <FontAwesome name="align-justify" color={activeSettings.themes.theme.iconColor} size={40} />
         <View style={styles.smallSpace}></View>
-        <FontAwesome name="search" color={'#000000'} size={40} />
-        <View style={styles.space}></View>  
-        <TouchableOpacity onPress={() =>{navigation.navigate('Profile')}}>
-        <FontAwesome name="user" color={'#000000'} size={40} style={styles.userIcon}/>
+        <FontAwesome name="search" color={activeSettings.themes.theme.iconColor} size={40} />
+        <View style={styles.space}></View>
+        <TouchableOpacity onPress={() => { navigation.navigate('SettingsScreen') }}>
+          <FontAwesome name="cog" color={activeSettings.themes.theme.iconColor} size={40} style={styles.userIcon} />
+        </TouchableOpacity>
+        <View style={styles.smallSpace}></View>
+        <TouchableOpacity onPress={() => { navigation.navigate('Profile') }}>
+          <FontAwesome name="user" color={activeSettings.themes.theme.iconColor} size={40} style={styles.userIcon} />
         </TouchableOpacity>
       </View>
 
       <View style={styles.flexbox}>
-        <TouchableOpacity onPress={() =>{navigation.navigate('Rental', {NameOfCar: 'Nissan Skyline', Num: 0})}}>
-        <View style={styles.box}>
-          <Image source={require('../imgs/car1.jpg')} style={styles.images} />
-          <Text style={styles.txtcolor}>Nissan Skyline</Text>
-          <Text>This car is very cool, now please rent it.</Text>
-        </View>
+        <TouchableOpacity onPress={() => { navigation.navigate('Rental', { NameOfCar: 'Nissan Skyline', Num: 0 }) }}>
+          <View style={[styles.box, { backgroundColor: activeSettings.themes.theme.containerColor }]}>
+            <Image source={require('../imgs/car1.jpg')} style={styles.images} />
+            <Text style={[styles.txtcolor, { color: activeSettings.themes.theme.textColor }]}>Nissan Skyline</Text>
+            <Text style={{ color: activeSettings.themes.theme.textColor }}>This car is very cool, now please rent it.</Text>
+          </View>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() =>{navigation.navigate('Rental', {NameOfCar: 'Ford GT', Num: 1})}}>
-        <View style={styles.box}>
-          <Image source={require('../imgs/car2.jpg')} style={styles.images} />
-          <Text style={styles.txtcolor}>Ford GT</Text>
-          <Text>This car is very cool, now please rent it.</Text>
-        </View>
+        <TouchableOpacity onPress={() => { navigation.navigate('Rental', { NameOfCar: 'Ford GT', Num: 1 }) }}>
+          <View style={[styles.box, { backgroundColor: activeSettings.themes.theme.containerColor }]}>
+            <Image source={require('../imgs/car2.jpg')} style={styles.images} />
+            <Text style={[styles.txtcolor, { color: activeSettings.themes.theme.textColor }]}>Ford GT</Text>
+            <Text style={{ color: activeSettings.themes.theme.textColor }}>This car is very cool, now please rent it.</Text>
+          </View>
         </TouchableOpacity>
       </View>
 
@@ -76,7 +84,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#e09f3e',
     alignItems: 'center',
-    justifyContent: 'center', 
+    justifyContent: 'center',
     flexDirection: 'column'
   },
   topArea: {
@@ -95,7 +103,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'black',
     borderRadius: 10
-    
+
   },
   images: {
     width: 390,
@@ -105,15 +113,15 @@ const styles = StyleSheet.create({
     color: 'red',
     fontSize: 30
   },
-  userIcon:{
+  userIcon: {
     alignSelf: 'flex-end'
   },
   space: {
-    width: 260
+    width: 205
   },
   smallSpace: {
     width: 15
   }
 });
 
-export default HomeScreen
+export default HomeScreen;

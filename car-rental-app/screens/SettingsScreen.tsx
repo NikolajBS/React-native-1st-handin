@@ -5,20 +5,24 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faBell, faMoon, faSun, faBook } from '@fortawesome/free-solid-svg-icons';
 import { useNavigation } from '@react-navigation/native';
 import { ActiveSettingsProps } from '../types/ActiveSettingsProps';
+import { ActiveSettingsContext } from '../contexts/ActiveSettingsContext';
 
-function SettingsScreen({ activeSettings, setActiveSettings }: ActiveSettingsProps) {
-    const navigation = useNavigation();
+function SettingsScreen({ navigation }) {
+    //const navigation = useNavigation();
+    const { activeSettings, setActiveSettings }: ActiveSettingsProps = React.useContext(ActiveSettingsContext);
 
     const handleDarkMode = () => {
         const newTheme = activeSettings.themes.darkMode ? {
-            backgroundColor: 'lightgray',
+            backgroundColor: '#B28440',
+            containerColor: '#F0AA42', //orange
             textColor: 'black',
-            buttonColor: '#A5CAFF',
+            buttonColor: '#E0A450',
             iconColor: 'black',
         } : {
-            backgroundColor: '#0D1117',
+            backgroundColor: '#1A222D', //very dark blue
+            containerColor: '#172C4C', //dark blue
             textColor: 'lightgray',
-            buttonColor: '#526580',
+            buttonColor: '#526580', //very light gray
             iconColor: 'lightgray',
         };
     
@@ -63,7 +67,7 @@ function SettingsScreen({ activeSettings, setActiveSettings }: ActiveSettingsPro
                 styles.container, 
                 {backgroundColor: activeSettings.themes.theme.backgroundColor },
                 ]}>
-                <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+                <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
                     <View style={[styles.backArrow]}>
                         <Icon name="arrow-long-left" size={64} color={activeSettings.themes.theme.iconColor}/>
                     </View>

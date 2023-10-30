@@ -8,6 +8,7 @@ import HomeScreen from './screens/Home';
 import ProfileScreen from './screens/ProfileScreen';
 import SettingsScreen from './screens/SettingsScreen';
 import { ActiveSettingsProps } from './types/ActiveSettingsProps';
+import { ActiveSettingsContext } from './contexts/ActiveSettingsContext';
 import { FontAwesome } from '@expo/vector-icons';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -15,7 +16,7 @@ const Tab = createBottomTabNavigator()
 const Stack = createStackNavigator();
 
 
-function TabNavigator({ activeSettings, setActiveSettings }: ActiveSettingsProps) {
+function TabNavigator() {
   return (
     <Tab.Navigator
       screenOptions={{
@@ -29,43 +30,44 @@ function TabNavigator({ activeSettings, setActiveSettings }: ActiveSettingsProps
         tabBarIcon: () => (
           <FontAwesome name="home" color={'#FFFFFF'} size={40} />
         ),
-      }} />
-      <Tab.Screen name="Settings" options={{
+      }} />{/*
+      <Tab.Screen name="Settings" component={StackNavigator} options={{
         tabBarStyle: { backgroundColor: '#335c67'},
         tabBarLabel: 'Settings',
         tabBarIcon: () => (
           <FontAwesome name="cog" color={'#FFFFFF'} size={40} />
         ),
-      }}>
-        {props => <SettingsScreen {...props} activeSettings={activeSettings} setActiveSettings={setActiveSettings}/>}
-      </Tab.Screen>
+      }}/>*/}
     </Tab.Navigator>
   )
 }
 
 function StackNavigator() {
+  //const { activeSettings }: ActiveSettingsProps = React.useContext(ActiveSettingsContext);
+  //const { setActiveSettings }: ActiveSettingsProps = React.useContext(ActiveSettingsContext);
+
   return (
     <Stack.Navigator>
-      <Stack.Screen name='HomeScreen' component={HomeScreen} options={{
-        headerShown: false,
-      }} />
+      <Stack.Screen name='HomeScreen' component={HomeScreen} options={{ headerShown: false }} />
       <Stack.Screen name='Profile' component={ProfileScreen} />
       <Stack.Screen name='Rental' component={RentalScreen} />
+      <Stack.Screen name='SettingsScreen' component={SettingsScreen} options={{ headerShown: false }} />
     </Stack.Navigator>
   )
 }
 
 export default function App() {
-
+  
   const [theme, setTheme] = useState({
-    backgroundColor: 'lightgray',
+    backgroundColor: '#B28440',
+    containerColor: '#F0AA42', //orange
     textColor: 'black',
-    buttonColor: '#A5CAFF',
+    buttonColor: '#E0A450',
     iconColor: 'black',
   });
-
+  
   const [language, setLanguage] = useState<string>('English');
-
+  
   const [activeSettings, setActiveSettings] = useState({
     themes: {
       darkMode: false,
@@ -79,8 +81,10 @@ export default function App() {
   });
 
   return (
-    <NavigationContainer>
-      <TabNavigator activeSettings={activeSettings} setActiveSettings={setActiveSettings}/>
-    </NavigationContainer>
+    <ActiveSettingsContext.Provider value={{ activeSettings, setActiveSettings }}>
+      <NavigationContainer>
+        <TabNavigator />
+      </NavigationContainer>
+    </ActiveSettingsContext.Provider>
   );
 }
