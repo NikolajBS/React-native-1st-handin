@@ -20,21 +20,21 @@ function TabNavigator({ activeSettings, setActiveSettings }: ActiveSettingsProps
     <Tab.Navigator
       screenOptions={{
         tabBarStyle: {
-          backgroundColor: '#c4c4c4'
+          backgroundColor: '#335c67'
         }
       }}>
       <Tab.Screen name="Home" component={StackNavigator} options={{
-        tabBarStyle: { backgroundColor: '#a4a4a4' },
+        tabBarStyle: { backgroundColor: '#335c67'},
         tabBarLabel: 'Home',
         tabBarIcon: () => (
-          <FontAwesome name="home" color={'#000000'} size={40} />
+          <FontAwesome name="home" color={'#FFFFFF'} size={40} />
         ),
       }} />
       <Tab.Screen name="Settings" options={{
-        tabBarStyle: { backgroundColor: '#a4a4a4' },
+        tabBarStyle: { backgroundColor: '#335c67'},
         tabBarLabel: 'Settings',
         tabBarIcon: () => (
-          <FontAwesome name="cog" color={'#000000'} size={40} />
+          <FontAwesome name="cog" color={'#FFFFFF'} size={40} />
         ),
       }}>
         {props => <SettingsScreen {...props} activeSettings={activeSettings} setActiveSettings={setActiveSettings}/>}
