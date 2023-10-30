@@ -37,7 +37,6 @@ screenOptions={{
               <FontAwesome name="cog" color={'#FFFFFF'} size={40} />
             ),
           }}/>
-<Tab.Screen name='Profile' component={Profile}/>
 </Tab.Navigator>
 )
 }
