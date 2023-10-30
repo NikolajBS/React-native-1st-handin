@@ -44,7 +44,7 @@ const ProfileScreen = ({ navigation }) => {
 
   const handleNext = () => {
     if (name && address && email && Description && password) {
-      navigation.navigate('HomeScreen');
+      navigation.navigate('Home');
     } else {
       alert('Please fill in all the required fields before proceeding.');
     }
