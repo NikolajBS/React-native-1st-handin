@@ -9,6 +9,7 @@ import RentalScreen from './screens/RentalScreen';
 import Profile from './screens/ProfileScreen';
 import { FontAwesome } from '@expo/vector-icons';
 import SettingScreen from './screens/SettingsScreen';
+import BookingScreen from './screens/BookingScreen';
 
 const Stack= createStackNavigator();
 const Tab=createBottomTabNavigator();
@@ -37,6 +38,14 @@ screenOptions={{
               <FontAwesome name="cog" color={'#FFFFFF'} size={40} />
             ),
           }}/>
+
+<Tab.Screen name="Booking" component={BookingScreen} options={{
+  tabBarLabel: 'Booking',
+  tabBarIcon: () => (
+    <FontAwesome name="calendar" color={'#FFFFFF'} size={40} />
+  ),
+}} />
+
 </Tab.Navigator>
 )
 }
@@ -52,6 +61,7 @@ export default function App() {
              />
              <Stack.Screen name='Rental' component={RentalScreen}/>
              <Stack.Screen name='Profile' component={Profile}/>
+             <Stack.Screen name='Booking' component={BookingScreen}/>
              </Stack.Navigator>
            </NavigationContainer>
   );

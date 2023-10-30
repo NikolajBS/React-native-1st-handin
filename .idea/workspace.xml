@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ce990368-0a0a-42c6-89ef-bde04dfc8aaf" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/car-rental-app/screens/BookingScreen.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/car-rental-app/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/car-rental-app/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/car-rental-app/types/LanguageProps.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/car-rental-app/types/ThemeProps.d.ts" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
