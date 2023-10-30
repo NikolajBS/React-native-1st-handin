@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
@@ -20,6 +21,7 @@ screenOptions={{
               backgroundColor: '#335c67'
             }
           }}
+
 >
 <Tab.Screen name='Home' component={Home}
  options={{
@@ -44,16 +46,36 @@ screenOptions={{
 </Tab.Navigator>
 )
 }
+
+
 export default function App() {
+  const [theme, setTheme] = useState({
+    backgroundColor: 'lightgray',
+    textColor: 'black',
+    buttonColor: '#A5CAFF',
+  });
+
+const [language, setLanguage] = useState<string>('English');
+
+const toggleLanguage = () => {
+  setLanguage(prevLanguage => prevLanguage === 'English' ? 'Danish' : 'English');
+};
+
+
   return (
+
+
     <NavigationContainer>
          <Stack.Navigator>
-         <Stack.Screen name='TabNavigator' component={TabNavigator} options={{headerShown: false}}/>
+         <Stack.Screen name='TabNavigator' component={TabNavigator} options={{headerShown: false}}
+         />
          <Stack.Screen name='Rental' component={RentalScreen}/>
          <Stack.Screen name='Profile' component={Profile}/>
          </Stack.Navigator>
        </NavigationContainer>
   );
+
+
 }
 
 /*const styles = StyleSheet.create({
