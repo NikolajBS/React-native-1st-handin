@@ -11,7 +11,7 @@ const  RentalScreen = ({ route }) => {
   const alertUser = () => {
     setIsRenting(!isRenting);
     if(isRenting){
-    Alert.alert('Added to Cart');
+    Alert.alert('Car booked');
     } else{
     Alert.alert('Renting canceled');
     }

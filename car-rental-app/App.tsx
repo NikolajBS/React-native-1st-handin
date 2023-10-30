@@ -31,48 +31,30 @@ screenOptions={{
             <FontAwesome name="home" color={'#FFFFFF'} size={40} />
           ),}}
 />
-<Tab.Screen name="Settings" options={{
+<Tab.Screen name="Settings" component={SettingScreen} options={{
             tabBarLabel: 'Settings',
             tabBarIcon: () => (
               <FontAwesome name="cog" color={'#FFFFFF'} size={40} />
             ),
-          }}>
-            {props => <SettingScreen {...props}
-            theme={theme} setTheme={setTheme}
-            language={language} toggleLanguage={toggleLanguage}
-/>}
-</Tab.Screen>
+          }}/>
 <Tab.Screen name='Profile' component={Profile}/>
 </Tab.Navigator>
 )
 }
 
 
+
 export default function App() {
-  const [theme, setTheme] = useState({
-    backgroundColor: 'lightgray',
-    textColor: 'black',
-    buttonColor: '#A5CAFF',
-  });
-
-const [language, setLanguage] = useState<string>('English');
-
-const toggleLanguage = () => {
-  setLanguage(prevLanguage => prevLanguage === 'English' ? 'Danish' : 'English');
-};
-
-
   return (
 
-
-    <NavigationContainer>
-         <Stack.Navigator>
-         <Stack.Screen name='TabNavigator' component={TabNavigator} options={{headerShown: false}}
-         />
-         <Stack.Screen name='Rental' component={RentalScreen}/>
-         <Stack.Screen name='Profile' component={Profile}/>
-         </Stack.Navigator>
-       </NavigationContainer>
+     <NavigationContainer>
+             <Stack.Navigator>
+             <Stack.Screen name='TabNavigator' component={TabNavigator} options={{headerShown: false}}
+             />
+             <Stack.Screen name='Rental' component={RentalScreen}/>
+             <Stack.Screen name='Profile' component={Profile}/>
+             </Stack.Navigator>
+           </NavigationContainer>
   );
 
 
