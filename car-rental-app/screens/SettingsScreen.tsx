@@ -11,7 +11,6 @@ import { ActiveSettingsProps } from '../types/ActiveSettingsProps';
 
 function SettingsScreen({ activeSettings, setActiveSettings }: ActiveSettingsProps) {
     const navigation = useNavigation();
-    console.log("darkMode = " + activeSettings.themes.darkMode);
 
     const handleDarkMode = () => {
         const newTheme = activeSettings.themes.darkMode ? {
